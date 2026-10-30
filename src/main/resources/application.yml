@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: catalog-search-api
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/catalog_db}
+    username: ${DB_USER:catalog_user}
+    password: ${DB_PASSWORD:catalog_password}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 2000ms
+
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000 # 10 minutos de TTL em milissegundos
+      cache-null-values: false
+
+server:
+  port: 8080
